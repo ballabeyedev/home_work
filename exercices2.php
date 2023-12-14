@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nombre Premier</title>
+    <title>Multiple d'un nombre</title>
     <style>
-    body {
+        body {
         font-family: Arial, sans-serif;
         background-color: #f4f4f4;
         margin: 0;
@@ -14,6 +14,7 @@
         justify-content: center;
         align-items: center;
         height: 100vh;
+    
     }
 
     .nombre {
@@ -62,57 +63,45 @@
         font-weight: bold;
     }
 
-    .prime {
+    .juste {
         color: green;
         border: 1px solid black;
         padding: 10px;
     }
 
-    .non-prime {
+    .faux {
         color: red;
         border: 1px solid black;
         padding: 10px;
 
     }
-</style>
-
+    #form{
+        border: 3px solid black;
+        padding: 30px;
+        border-radius:50px;
+    }
+    </style>
 </head>
 <body>
-    <div class="nombre">
-        <p>VERIFICATION SI UN NOMBRE EST PREMIER OU NON</p>
-        <form action="" method="POST">
-            <label for="name">Nombre</label>
-            <input type="text" name="number" id="name" placeholder="Entrer votre nombre">
-            <button type="submit">Valider</button>
-        </form>
-    </div>
+    <form action="" method="POST" id="form">
+        <p>VERIFICATION SI UN NOMBRE EST A  LA FOIS MULTIPLE DE DEUX AUTRE NOMBRE</p>
+        <label for="number">Nombre</label>
+        <input type="text" name="number" placeholder="Entrer un nombre">
+        <button type="submit">Valider</button>
 
-    <?php
-    // Vérifie si le formulaire a été soumis
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Récupère la valeur du champ "number" du formulaire
-        $mon_nombre = $_POST["number"];
-        $est_premier = true;
+        <?php
+            if (isset($_POST['number'])) {
+            $mon_nombre =(int) $_POST["number"];
 
-        if ($mon_nombre < 2) {
-            $est_premier = false;
+            if ($mon_nombre % 3 === 0 && $mon_nombre % 5 === 0) {
+            echo '<p class="juste">' . $mon_nombre . ' est un multiple commun de 3 et 5.</p>';
         } else {
-            // Utilise la fonction sqrt pour obtenir la racine carrée
-            for ($i = 2; $i <= sqrt($mon_nombre); $i++) {
-                if ($mon_nombre % $i === 0) {
-                    $est_premier = false;
-                    break;
-                }
-            }
-        }
-
-        if ($est_premier) {
-            echo '<p class="result prime">' . $mon_nombre . ' est un nombre premier.</p>';
-        } else {
-            echo '<p class="result non-prime">' . $mon_nombre . ' n\'est pas un nombre premier.</p>';
+            echo '<p class="faux">' . $mon_nombre . ' n\'est pas un multiple commun de 3 et 5.</p>';
         }
     }
-?>
+    ?>
+    </form>
+
 
 </body>
 </html>
